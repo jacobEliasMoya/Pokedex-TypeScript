@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(45deg, #100764, #061386);
+  background: linear-gradient(45deg, #1e0acc, #b8bcdc);
   font-family: Arial, Helvetica, sans-serif;
   min-width: 100vw;
   overflow: hidden;
@@ -21,6 +21,7 @@ body #root .invert * {
 body #root h1 {
   font-size: 5em;
   margin-top: 0px;
+  font-weight: 400;
   text-shadow: 0.5em 0.25em 0.65em #020840, -0.5em -0.25em 0.65em #3949d5;
 }
 body #root .btn {
@@ -32,4 +33,56 @@ body #root .btn {
   letter-spacing: 2px;
   border-radius: 10px;
   cursor: pointer;
+}
+body #root .pokeball-container {
+  width: 50vh;
+  height: 50vh;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 1em 1em 3em rgba(0, 0, 0, 0.2901960784);
+  transition: all ease 0.3s;
+}
+body #root .pokeball-container .pokeball-inner {
+  transition: all ease 0.3s;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(45deg, yellow, orange, red, pink, blue);
+}
+body #root .pokeball-container .pokeball-inner .pokeball-top, body #root .pokeball-container .pokeball-inner .pokeball-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: all ease 0.3s;
+  justify-content: end;
+  height: 50%;
+  background-color: maroon;
+}
+body #root .pokeball-container .pokeball-inner .pokeball-top .pokeball-button, body #root .pokeball-container .pokeball-inner .pokeball-bottom .pokeball-button {
+  transition: all ease 0.3s;
+  width: 13vh;
+  height: 13vh;
+  transform: translate(0%, 50%);
+  border-radius: 50%;
+  background-image: radial-gradient(circle at center, #c8c8c8, #f0f0f0 50%, white 50%, #fefefe 70%);
+  border: 2vh solid #111;
+  cursor: pointer;
+}
+body #root .pokeball-container .pokeball-inner .pokeball-top {
+  background-image: radial-gradient(circle at -5% 100%, #590808 0% 50%, maroon 80%, rgb(235, 89, 89) 95%, maroon 95% 100%);
+  border-bottom: 2vh solid #121212;
+}
+body #root .pokeball-container .pokeball-inner .pokeball-bottom {
+  border-bottom: 2vh solid #121212;
+  background-image: radial-gradient(circle at 0% 0%, #b8b8b8 0% 50%, rgb(255, 255, 255) 70%);
+}
+body #root .pokeball-container:hover {
+  box-shadow: 1em 1.5em 3em rgba(0, 0, 0, 0.4196078431);
+  transform: translate(0, -10px);
+}
+body #root .pokeball-container:hover .pokeball-top {
+  transform: translate(0, -4px);
+}
+body #root .pokeball-container:hover .pokeball-top .pokeball-button {
+  box-shadow: 0em 0.5em 1em rgba(0, 0, 0, 0.439);
 }/*# sourceMappingURL=styles.css.map */

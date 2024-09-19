@@ -1,42 +1,116 @@
 @mixin flexM(){
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
 }
 
 body{
-    background: linear-gradient(45deg,#100764,#061386);
-    font-family: Arial, Helvetica, sans-serif;
-    min-width: 100vw;
+
+background: linear-gradient(45deg,#1e0acc,#b8bcdc);
+font-family: Arial, Helvetica, sans-serif;
+min-width: 100vw;
+overflow: hidden;
+
+#root{
+
+@include flexM();
+min-height: 100vh;
+overflow: hidden;
+
+.invert{
+    color: #fff;
+    *{
+        color: #fff;
+    }
+}
+
+h1{
+    font-size: 5em;
+    margin-top: 0px;
+    font-weight: 400;
+    text-shadow: .5em .25em .65em #020840, -.5em -.25em .65em #3949d5;
+}
+
+.btn{
+
+    background: maroon;
+    color: #fff;
+    border:none;
+    font-size: 1.25em;
+    padding: .4em .9em;
+    letter-spacing: 2px;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+
+.pokeball-container{
+
+    width: 50vh;
+    height: 50vh;
+    border-radius: 50%;
     overflow: hidden;
-    #root{
-        @include flexM();
-        min-height: 100vh;
-        overflow: hidden;
+    box-shadow: 1em 1em 3em #0000004a ;
+    transition: all ease .3s;
 
-        .invert{
-            color: #fff;
-            *{
-                color: #fff;
+
+    .pokeball-inner{   
+    transition: all ease .3s;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(45deg, yellow,orange,red, pink,blue);
+
+        .pokeball-top,.pokeball-bottom{
+
+            @include flexM();
+            transition: all ease .3s;
+            justify-content: end;
+            height: 50%;
+            background-color:maroon;
+
+            .pokeball-button{
+                transition: all ease .3s;
+                width: 13vh;
+                height: 13vh;
+                transform: translate(0%,50%);
+                border-radius: 50%;
+                background-image: radial-gradient(circle at center, #c8c8c8, #f0f0f0 50%, white 50%, #fefefe 70%);
+                border:2vh solid #111;
+                cursor: pointer;
+
             }
+
         }
 
-        h1{
-            font-size: 5em;
-            margin-top: 0px;
-            text-shadow: .5em .25em .65em #020840, -.5em -.25em .65em #3949d5;
+        .pokeball-top{
+            background-image: radial-gradient(circle at -5% 100%, #590808 0% 50%, maroon 80%, rgb(235, 89, 89) 95%, maroon 95% 100%);
+            border-bottom: 2vh solid #121212;
         }
 
-        .btn{
-            background: maroon;
-            color: #fff;
-            border:none;
-            font-size: 1.25em;
-            padding: .4em .9em;
-            letter-spacing: 2px;
-            border-radius: 10px;
-            cursor: pointer;
+        .pokeball-bottom{
+            border-bottom: 2vh solid #121212;
+            background-image: radial-gradient(circle at 0% 0%, #b8b8b8 0% 50%, rgb(255, 255, 255) 70%);
         }
     }
+
+    &:hover{
+        box-shadow: 1em 1.5em 3em #0000006b ;
+        transform: translate(0,-10px); 
+
+        .pokeball-top{
+
+            transform: translate(0,-4px); 
+
+            .pokeball-button{
+                box-shadow: 0em .5em 1em rgba(0, 0, 0, 0.439);
+            }
+
+
+
+        }
+
+    }
+}
+}
 }
