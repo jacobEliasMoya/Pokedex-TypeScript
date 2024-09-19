@@ -1,0 +1,35 @@
+body {
+  background: linear-gradient(45deg, #100764, #061386);
+  font-family: Arial, Helvetica, sans-serif;
+  min-width: 100vw;
+  overflow: hidden;
+}
+body #root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
+body #root .invert {
+  color: #fff;
+}
+body #root .invert * {
+  color: #fff;
+}
+body #root h1 {
+  font-size: 5em;
+  margin-top: 0px;
+  text-shadow: 0.5em 0.25em 0.65em #020840, -0.5em -0.25em 0.65em #3949d5;
+}
+body #root .btn {
+  background: maroon;
+  color: #fff;
+  border: none;
+  font-size: 1.25em;
+  padding: 0.4em 0.9em;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  cursor: pointer;
+}/*# sourceMappingURL=styles.css.map */

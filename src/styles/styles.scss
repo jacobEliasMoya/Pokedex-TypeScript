@@ -1,0 +1,42 @@
+@mixin flexM(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+body{
+    background: linear-gradient(45deg,#100764,#061386);
+    font-family: Arial, Helvetica, sans-serif;
+    min-width: 100vw;
+    overflow: hidden;
+    #root{
+        @include flexM();
+        min-height: 100vh;
+        overflow: hidden;
+
+        .invert{
+            color: #fff;
+            *{
+                color: #fff;
+            }
+        }
+
+        h1{
+            font-size: 5em;
+            margin-top: 0px;
+            text-shadow: .5em .25em .65em #020840, -.5em -.25em .65em #3949d5;
+        }
+
+        .btn{
+            background: maroon;
+            color: #fff;
+            border:none;
+            font-size: 1.25em;
+            padding: .4em .9em;
+            letter-spacing: 2px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    }
+}
