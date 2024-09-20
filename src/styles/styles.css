@@ -18,11 +18,23 @@ body #root .invert {
 body #root .invert * {
   color: #fff;
 }
+body #root a {
+  color: initial;
+  text-decoration: none;
+}
 body #root h1 {
-  font-size: 5em;
+  text-align: center;
+  font-size: 4vw;
   margin-top: 0px;
-  font-weight: 400;
+  margin-bottom: 1em;
+  font-weight: 800;
   text-shadow: 0.5em 0.25em 0.65em #020840, -0.5em -0.25em 0.65em #3949d5;
+  text-transform: capitalize;
+  line-height: 1;
+}
+body #root img {
+  width: 150px;
+  height: 150px;
 }
 body #root .btn {
   background: maroon;
@@ -35,8 +47,8 @@ body #root .btn {
   cursor: pointer;
 }
 body #root .pokeball-container {
-  width: 50vh;
-  height: 50vh;
+  width: 20vw;
+  height: 20vw;
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 1em 1em 3em rgba(0, 0, 0, 0.2901960784);
@@ -60,8 +72,8 @@ body #root .pokeball-container .pokeball-inner .pokeball-top, body #root .pokeba
 }
 body #root .pokeball-container .pokeball-inner .pokeball-top .pokeball-button, body #root .pokeball-container .pokeball-inner .pokeball-bottom .pokeball-button {
   transition: all ease 0.3s;
-  width: 13vh;
-  height: 13vh;
+  width: 6vw;
+  height: 6vw;
   transform: translate(0%, 50%);
   border-radius: 50%;
   background-image: radial-gradient(circle at center, #c8c8c8, #f0f0f0 50%, white 50%, #fefefe 70%);
