@@ -57,7 +57,7 @@ return (
         pokeList.map((item:any)=>{
           return(
 
-            <div className="col-md-4" id={pokemonObj ? pokemonObj.id : '1'}>
+            <div className="col-md-4" id={pokemonObj ? pokemonObj.id : item}>
             <div className="wrap">
             <img src={pokemonObj ? pokemonObj.sprites.front_default : '#'} alt="" className={pokemonObj ? 'd-inline' : 'd-none' } /><br/>
             </div>
