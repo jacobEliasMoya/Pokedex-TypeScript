@@ -2,15 +2,21 @@ body {
   background: linear-gradient(45deg, #1e0acc, #b8bcdc);
   font-family: Arial, Helvetica, sans-serif;
   min-width: 100vw;
-  overflow: hidden;
+  min-height: 100vh;
+  height: auto;
+  overflow: scroll;
+  margin: 0;
+}
+body a {
+  cursor: pointer;
 }
 body #root {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: auto;
   min-height: 100vh;
-  overflow: hidden;
 }
 body #root .invert {
   color: #fff;
@@ -24,17 +30,12 @@ body #root a {
 }
 body #root h1 {
   text-align: center;
-  font-size: 4vw;
   margin-top: 0px;
   margin-bottom: 1em;
   font-weight: 800;
   text-shadow: 0.5em 0.25em 0.65em #020840, -0.5em -0.25em 0.65em #3949d5;
   text-transform: capitalize;
   line-height: 1;
-}
-body #root img {
-  width: 150px;
-  height: 150px;
 }
 body #root .btn {
   background: maroon;
@@ -45,6 +46,49 @@ body #root .btn {
   letter-spacing: 2px;
   border-radius: 10px;
   cursor: pointer;
+}
+body #root .advanced-search.active {
+  min-height: 75vh;
+}
+body #root .advanced-search {
+  transition: all ease-in 0.25s;
+  background: #616161;
+  min-height: 8vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: end;
+  border: 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 11;
+}
+body #root .advanced-search .advanced-search-btn {
+  padding: 0.75em 1.25em;
+  background-color: #616161;
+  transform: translate(0, 99.5%);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: #fff;
+}
+body #root .advanced-search .advanced-search-btn::after, body #root .advanced-search .advanced-search-btn::before {
+  transform: rotate(180deg);
+  background: transparent url(../assets/large-notch-darkgray.png) no-repeat;
+  background-size: 100% 100%;
+  content: " ";
+  height: 100%;
+  right: -30px;
+  position: absolute;
+  width: 38px;
+  top: -3px;
+}
+body #root .advanced-search .advanced-search-btn::before {
+  right: initial;
+  left: -30px;
+  transform: rotate(180deg) scaleX(-1);
 }
 body #root .pokeball-container {
   width: 20vw;
@@ -67,8 +111,8 @@ body #root .pokeball-container .pokeball-inner .pokeball-top, body #root .pokeba
   flex-direction: column;
   transition: all ease 0.3s;
   justify-content: end;
-  height: 50%;
   background-color: maroon;
+  height: 50%;
 }
 body #root .pokeball-container .pokeball-inner .pokeball-top .pokeball-button, body #root .pokeball-container .pokeball-inner .pokeball-bottom .pokeball-button {
   transition: all ease 0.3s;
@@ -77,15 +121,15 @@ body #root .pokeball-container .pokeball-inner .pokeball-top .pokeball-button, b
   transform: translate(0%, 50%);
   border-radius: 50%;
   background-image: radial-gradient(circle at center, #c8c8c8, #f0f0f0 50%, white 50%, #fefefe 70%);
-  border: 2vh solid #111;
+  border: 1vw solid #111;
   cursor: pointer;
 }
 body #root .pokeball-container .pokeball-inner .pokeball-top {
   background-image: radial-gradient(circle at -5% 100%, #590808 0% 50%, maroon 80%, rgb(235, 89, 89) 95%, maroon 95% 100%);
-  border-bottom: 2vh solid #121212;
+  border-bottom: 0.5vw solid #121212;
 }
 body #root .pokeball-container .pokeball-inner .pokeball-bottom {
-  border-bottom: 2vh solid #121212;
+  border-top: 0.5vw solid #121212;
   background-image: radial-gradient(circle at 0% 0%, #b8b8b8 0% 50%, rgb(255, 255, 255) 70%);
 }
 body #root .pokeball-container:hover {
@@ -97,4 +141,22 @@ body #root .pokeball-container:hover .pokeball-top {
 }
 body #root .pokeball-container:hover .pokeball-top .pokeball-button {
   box-shadow: 0em 0.5em 1em rgba(0, 0, 0, 0.439);
+}
+body #root .row .wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  background: #cecece;
+  border-radius: 10px;
+}
+body #root .row .wrap img {
+  width: 150px;
+  height: 150px;
+}
+body #root .large-wrapper {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }/*# sourceMappingURL=styles.css.map */
