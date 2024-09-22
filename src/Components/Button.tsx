@@ -2,13 +2,14 @@
 
 interface MyProps {
     buttonText: string;
-    buttonLink: string;
     buttonClass: string | undefined;
+    buttonIcon: string | undefined;
+    morePokemon: any | undefined  ;
 }
 
-const Button = ({buttonText,buttonLink,buttonClass}:MyProps) => {
+const Button = ({buttonText,buttonClass,buttonIcon,morePokemon}:MyProps) => {
   return (
-    <a href={buttonLink} className={`btn ${buttonClass}`}>{buttonText}</a>
+    <p onClick={morePokemon} className={`btn ${buttonClass}`}> <i className={buttonIcon}></i> {buttonText}</p>
   )
 }
 

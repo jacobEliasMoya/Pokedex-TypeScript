@@ -100,7 +100,7 @@ body{
             .advanced-search-btn{
                 padding: .45em 1.25em;
                 background-color: $grey4;
-                transform: translate(0,99.5%);
+                transform: translate(0,98%);
                 border-bottom-left-radius: 10px;
                 border-bottom-right-radius: 10px;
                 color:#fff;
@@ -191,7 +191,7 @@ body{
         .row .wrap{
             @include flexM();
             align-items: center;
-            background:#cecece;
+            background:#F2F2F2;
             border-radius: 10px;
             padding: 1em;
 
@@ -292,7 +292,7 @@ body{
 
         .large-wrapper{
             width: 100%;
-            max-width: 1200px;
+            max-width: 80%;
             margin: 0 auto;
             background-color: #fff;
 
