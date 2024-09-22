@@ -11,13 +11,14 @@ $grey3:#333;
 $grey4:#616161;
 
 body{
-
-    background: linear-gradient(45deg,#1e0acc,#b8bcdc);
+    background-image: url(../assets/container_bg.png);
+    background-size: cover;
     font-family: Arial, Helvetica, sans-serif;
     min-width: 100vw;
     min-height: 100vh;
     height: auto;
     overflow: scroll;
+    overflow-x: hidden;
     margin: 0 ;
 
     a{
@@ -29,7 +30,10 @@ body{
         @include flexM();
         margin: auto;
         min-height: 100vh;
+        background-image: url(../assets/container_bg.png);
+    background-color: $grey4;
 
+        
         .invert{
             color: #fff;
             *{
@@ -67,6 +71,14 @@ body{
 
         }
 
+        .randomize{
+            background: #30a7d7;
+        }
+
+        .basic-filter{
+            background-color: $grey2;
+        }
+
         .advanced-search.active{
             min-height: 75vh;
         
@@ -75,7 +87,7 @@ body{
         .advanced-search{
             transition: all ease-in .25s;
             background: $grey4;
-            min-height: 8vh;
+            min-height: 0;
             width: 100%;
             @include flexM();
             justify-content: end;
@@ -86,12 +98,14 @@ body{
             z-index: 11;
 
             .advanced-search-btn{
-                padding: .75em 1.25em;
+                padding: .45em 1.25em;
                 background-color: $grey4;
                 transform: translate(0,99.5%);
                 border-bottom-left-radius: 10px;
                 border-bottom-right-radius: 10px;
                 color:#fff;
+                width: 60%;
+                text-align: center;
 
                 &::after,&::before{
                     transform: rotate(180deg);
@@ -166,10 +180,9 @@ body{
 
                 .pokeball-top{
 
-                    transform: translate(0,-4px); 
 
                     .pokeball-button{
-                        box-shadow: 0em .5em 1em rgba(0, 0, 0, 0.439);
+                        box-shadow: 0em .5em 1em rgba(0, 0, 0, 0.274);
                     }
                 }
             }
@@ -180,17 +193,122 @@ body{
             align-items: center;
             background:#cecece;
             border-radius: 10px;
+            padding: 1em;
 
             img{
                 width: 150px;
                 height: 150px;
             }
+
+
+
+        }
+
+        .poke-number{
+            color: #333;
+        }
+        .types{
+            background-color: $grey1;
+            cursor: default;
+            font-size: .7em;
+            min-width: 80%;
+            font-weight: bold;
+            border-radius: 5px  ;
+        }
+
+        .bug{
+            background-color:#729f3f;
+        }
+        .dragon{
+            background: linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
+        }
+        .fairy{
+            background-color: #fdb9e9;
+            color: #000;
+        }
+        .fire{
+            background-color: #fd7d24;
+        }
+        .ghost{
+            background-color: #7b62a3;
+        }
+        .ground{
+            color: #000;
+         
+            background: linear-gradient(180deg, #f7de3f 50%, #ab9842 50%);
+        }
+        .normal{
+            color: #000;
+
+            background: #a4acaf;
+        }
+        .psychic{
+            background-color: #f366b9;
+        }
+        .steel{
+            color: #000;
+            background-color: #9eb7b8;
+        }
+        .dark{
+            background-color: #707070;
+
+        }
+        .electric{
+            color: #000;
+            background-color: #eed535;
+        }
+        .fighting{
+            background-color: #d56723;
+        }
+        .flying{
+            color: #000;
+            background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);   
+        }
+        .grass{
+            color: #000;
+            background-color: #9bcc50;
+        }
+        .ice{
+            color: #000;
+            background-color: #51c4e7;
+        }
+        .poison{
+            background-color: #b97fc9;
+        }
+        .rock{
+            background-color: #a38c21;
+        }
+        .water{
+            background-color: #4592c4;
+
+        }
+
+
+        .updown{
+            &:hover{
+                animation: up-down .2s 1;
+            }
         }
 
         .large-wrapper{
             width: 100%;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
+            background-color: #fff;
+
         }
+    }
+}
+
+@keyframes up-down {
+    0%{
+        transform: translate(0, 0px);
+    }
+    50%{
+        transform: translate(0, -5px);
+        
+    }
+    100%{
+        transform: translate(0, 0px);
     }
 }
