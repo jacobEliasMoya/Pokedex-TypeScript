@@ -28,7 +28,7 @@ const getPokemon = () => {
         let i=0;
         do{
           i++;
-          const pokeUrl = res.results[Math.floor(Math.random() * res.results.length)]; 
+          const pokeUrl = res.results[i]; 
           setList((pokeList: any) => [...pokeList,pokeUrl] );
         } while ( i < initialCount)
       })
@@ -102,13 +102,12 @@ return (
       }
 
 <div className="col-12 text-center mt-4 px-1 " >
-<Button 
-          morePokemon={addMorePokemon}
-          buttonClass="randomize  mb-4 mb-md-0"
-          buttonText="View More Pokemon"
-          buttonIcon={undefined}
-        />
-
+  <Button 
+    morePokemon={addMorePokemon}
+    buttonClass="randomize  mb-4 mb-md-0"
+    buttonText="View More Pokemon"
+    buttonIcon={undefined}
+  />
 </div>
 
     </div>
