@@ -65,4 +65,5 @@ const intialPokeSlice = createSlice({
 
 })
 
+export const {setIntialList} = intialPokeSlice.actions;
 export default intialPokeSlice.reducer;

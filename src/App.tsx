@@ -1,9 +1,12 @@
 import { useEffect,useState } from "react"
 import AdvSearch from "./Layout/AdvSearch";
 import Button from "./Components/Button";
+// import { useSelector } from "react-redux";
+// import { Rootstate } from "./state/store";
 
 function App() {
 
+// const listMain = useSelector((state:Rootstate)=>state.intialPokemon);
 const initialCount:number = 12;
 const [pokeList,setList] = useState<any>([]);
 const [pokeMisc, setPokeMisc] = useState<any>([]);
@@ -11,7 +14,6 @@ const [pokeMisc, setPokeMisc] = useState<any>([]);
 const addMorePokemon = () =>{
   setList([])
   getPokemon();
-
 }
 
 const newList = () =>{
@@ -27,9 +29,11 @@ const getPokemon = () => {
       .then(res=> {
         let i=0;
         do{
-          i++;
-          const pokeUrl = res.results[i]; 
+          console.log(res);
+          const pokeUrl = res.results[Math.floor(Math.random() * res.results.length)]; 
           setList((pokeList: any) => [...pokeList,pokeUrl] );
+          i++;
+
         } while ( i < initialCount)
       })
 }
@@ -45,7 +49,13 @@ useEffect(()=>{
       })
 
   })
+
 }, [pokeList])
+
+
+useEffect(()=>{
+  console.log(pokeMisc)
+},[pokeMisc])
 
 return (
 <>
@@ -73,7 +83,6 @@ return (
       <div className="w-100 pt-5"></div>
       { 
         pokeMisc.map((item:any)=>{
-          console.log(item)
           return(
           
             <div className="col-sm-6 col-lg-3 col-md-4  updown text-md-left text-center" >
@@ -101,17 +110,15 @@ return (
         })
       }
 
-<div className="col-12 text-center mt-4 px-1 " >
-  <Button 
-    morePokemon={addMorePokemon}
-    buttonClass="randomize  mb-4 mb-md-0"
-    buttonText="View More Pokemon"
-    buttonIcon={undefined}
-  />
-</div>
-
+      <div className="col-12 text-center mt-4 px-1 " >
+        <Button 
+          morePokemon={addMorePokemon}
+          buttonClass="randomize  mb-4 mb-md-0"
+          buttonText="View More Pokemon"
+          buttonIcon={undefined}
+        />
+      </div>
     </div>
-
   </div>
 
  
