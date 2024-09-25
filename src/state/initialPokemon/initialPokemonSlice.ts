@@ -19,13 +19,14 @@ interface CriesObjType{
 interface GameIndecesType{
     game_index:number,
     version: NameUrlType
+
 }
 
 interface MovesType{
     move: Array<NameUrlType>,
 }
 
-interface InitialPokeList {
+ interface InitialPokeList {
     abilities: Array<AbilitiesArrObjType>,
     base_experience: number,
     cries: CriesObjType,
@@ -51,18 +52,20 @@ interface InitialPokeList {
     weight: number
 }
 
-const initialState:InitialPokeList|any = {}
+const initialState:Array<InitialPokeList> = [];
 
 const intialPokeSlice = createSlice({
-    name: "pokemon",
+    name: "pokemonList",
     initialState,
     reducers:{
         setIntialList : (state, action:PayloadAction<InitialPokeList>) =>{
-            state = [...state,action.payload]
+            return [...state,action.payload];
+        },
+        resetList : ()=>{
+            return initialState; 
         }
     }
-
 })
 
-export const {setIntialList} = intialPokeSlice.actions;
+export const {setIntialList,resetList} = intialPokeSlice.actions;
 export default intialPokeSlice.reducer;

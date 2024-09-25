@@ -5,15 +5,20 @@ import { useSelector } from "react-redux";
 import { Rootstate } from "./state/store";
 import { useDispatch } from "react-redux";
 import { triggerApp } from "./state/mainAppState/appInitializationSlice";
+import { setIntialList,resetList } from "./state/initialPokemon/initialPokemonSlice";
+// placeholder image when sprites not present
+import missingMon from "./assets/missingmon.png"; 
 
 function App() {
 
-// const listMain = useSelector((state:Rootstate)=>state.intialPokemon);
 const initialCount:number = 12;
 const [pokeList,setList] = useState<any>([]);
-const [pokeMisc, setPokeMisc] = useState<any>([]);
 
+// appinialized state
 const isAppInialized = useSelector((state:Rootstate)=>state.initialAppState);
+// pokelist state
+const pokemonList = useSelector((state:Rootstate)=>state.intialPokemon);
+
 const dispatch = useDispatch();
 
 const addMorePokemon = () =>{
@@ -23,7 +28,7 @@ const addMorePokemon = () =>{
 
 const newList = () =>{
   setList([])
-  setPokeMisc([])
+  dispatch(resetList())
   getPokemon();
 }
 
@@ -38,34 +43,32 @@ const getPokemon = () => {
           const pokeUrl = res.results[Math.floor(Math.random() * res.results.length)]; 
           setList((pokeList: any) => [...pokeList,pokeUrl] );
           i++;
-
         } while ( i < initialCount)
       })
 }
 
 useEffect(()=>{
-
   pokeList.forEach((item:any)=>{
     fetch(item.url)
       .then( response => response.json())
       .then( res=>{
         let merged = {...item,...res}
-        setPokeMisc((pokeMisc:any)=>([...pokeMisc,merged]))
-      })
 
+        dispatch(setIntialList(merged));
+      })
   })
 }, [pokeList])
-
 
 useEffect(()=>{
   isAppInialized.value ? getPokemon() : null; 
 },[isAppInialized])
 
+ 
 return (
 <>
   <AdvSearch/>
   
-  <div className={pokeList.length === initialCount ? 'large-wrapper ': 'large-wrapper d-none'}>
+  <div className={pokemonList.length >= initialCount ? 'large-wrapper ': 'large-wrapper d-none'}>
     <div className="w-100 py-5 mt-md-5"></div>
     <div className="row p-4 text-left justify-content-center">
       <div className="col-md-6 col-lg-4 text-center">
@@ -85,15 +88,15 @@ return (
         </select>
       </div>
       <div className="w-100 pt-5"></div>
+
       { 
-        pokeMisc.map((item:any)=>{
+        pokemonList.map((item:any)=>{
           return(
           
             <div className="col-sm-6 col-lg-3 col-md-4  updown text-md-left text-center" >
 
-
             <div className="wrap">
-              <img src={item ? item.sprites.front_default : '#'} alt="" className={item ? 'd-inline' : ' ' } />
+              <img src={item ? item.sprites.front_default : missingMon} alt="" className={item ? 'd-inline' : '' } />
             </div>
 
             <p className="poke-number mb-0 mt-4 h5">{item ? `#${item.id}` : 'Pokemon ID '}</p>
