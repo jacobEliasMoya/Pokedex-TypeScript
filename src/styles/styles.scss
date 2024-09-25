@@ -31,7 +31,7 @@ body{
         margin: auto;
         min-height: 100vh;
         background-image: url(../assets/container_bg.png);
-    background-color: $grey4;
+        background-color: $grey4;
 
         
         .invert{
@@ -130,6 +130,8 @@ body{
 
         .pokeball-container{
 
+            min-width: 200px;
+            min-height: 200px;
             width: 20vw;
             height: 20vw;
             border-radius: 50%;
@@ -155,6 +157,8 @@ body{
                         transition: all ease .3s;
                         width: 6vw;
                         height: 6vw;
+                        min-width: 50px;
+                        min-height: 50px;
                         transform: translate(0%,50%);
                         border-radius: 50%;
                         background-image: radial-gradient(circle at center, #c8c8c8, #f0f0f0 50%, white 50%, #fefefe 70%);

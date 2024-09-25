@@ -1,8 +1,10 @@
 import { useEffect,useState } from "react"
 import AdvSearch from "./Layout/AdvSearch";
 import Button from "./Components/Button";
-// import { useSelector } from "react-redux";
-// import { Rootstate } from "./state/store";
+import { useSelector } from "react-redux";
+import { Rootstate } from "./state/store";
+import { useDispatch } from "react-redux";
+import { triggerApp } from "./state/mainAppState/appInitializationSlice";
 
 function App() {
 
@@ -10,6 +12,9 @@ function App() {
 const initialCount:number = 12;
 const [pokeList,setList] = useState<any>([]);
 const [pokeMisc, setPokeMisc] = useState<any>([]);
+
+const isAppInialized = useSelector((state:Rootstate)=>state.initialAppState);
+const dispatch = useDispatch();
 
 const addMorePokemon = () =>{
   setList([])
@@ -49,13 +54,12 @@ useEffect(()=>{
       })
 
   })
-
 }, [pokeList])
 
 
 useEffect(()=>{
-  console.log(pokeMisc)
-},[pokeMisc])
+  isAppInialized.value ? getPokemon() : null; 
+},[isAppInialized])
 
 return (
 <>
@@ -121,12 +125,12 @@ return (
     </div>
   </div>
 
- 
-
   <div className={pokeList.length === initialCount ? "pokeball-container d-none" : "pokeball-container"} >
         <div className="pokeball-inner">
           <div className="pokeball-top">
-            <div className="pokeball-button" onClick={getPokemon}>
+            <div className="pokeball-button" onClick={()=>{
+              dispatch(triggerApp())
+            }}>
             </div>
           </div>
           <div className="pokeball-bottom"></div>

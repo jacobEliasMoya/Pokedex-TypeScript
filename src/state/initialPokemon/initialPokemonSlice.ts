@@ -19,7 +19,6 @@ interface CriesObjType{
 interface GameIndecesType{
     game_index:number,
     version: NameUrlType
-
 }
 
 interface MovesType{
@@ -59,7 +58,7 @@ const intialPokeSlice = createSlice({
     initialState,
     reducers:{
         setIntialList : (state, action:PayloadAction<InitialPokeList>) =>{
-            state = {...state,...action.payload}
+            state = [...state,action.payload]
         }
     }
 
