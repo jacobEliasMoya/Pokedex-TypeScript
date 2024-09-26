@@ -11,6 +11,7 @@ import missingMon from "./assets/missingmon.png";
 
 function App() {
 
+const [isRandom,setIsRandom] = useState<boolean>(false)
 const [initialCount,setInitialCount] = useState(12)
 // appinialized state
 const isAppInialized = useSelector((state:Rootstate)=>state.initialAppState); 
@@ -40,6 +41,7 @@ const getPokemon = () => {
 }
 
 const getRandomPokemon = () => {
+  setIsRandom(true);
   dispatch(resetList());
   // worked into onclick to get pokemon
   fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10000')
@@ -62,7 +64,7 @@ useEffect(()=>{
 },[ isAppInialized ])
 
 useEffect(()=>{
-  pokemonList.length >= 12 ?  getPokemon() : null; 
+  pokemonList.length >= 12 && isRandom ? getRandomPokemon() :  getPokemon(); 
 },[ initialCount ])
 
 return (

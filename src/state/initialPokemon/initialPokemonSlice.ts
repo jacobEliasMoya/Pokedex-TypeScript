@@ -59,6 +59,7 @@ const intialPokeSlice = createSlice({
     initialState,
     reducers:{
         setIntialList : (state, action:PayloadAction<InitialPokeList>) =>{
+            
             return [...state,action.payload];
         },
         resetList : ()=>{
