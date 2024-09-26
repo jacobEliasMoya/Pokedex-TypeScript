@@ -11,59 +11,60 @@ import missingMon from "./assets/missingmon.png";
 
 function App() {
 
-const initialCount:number = 12;
-const [pokeList,setList] = useState<any>([]);
-
+const [initialCount,setInitialCount] = useState(12)
 // appinialized state
-const isAppInialized = useSelector((state:Rootstate)=>state.initialAppState);
+const isAppInialized = useSelector((state:Rootstate)=>state.initialAppState); 
 // pokelist state
 const pokemonList = useSelector((state:Rootstate)=>state.intialPokemon);
 
 const dispatch = useDispatch();
 
-const addMorePokemon = () =>{
-  setList([])
-  getPokemon();
-}
-
-const newList = () =>{
-  setList([])
-  dispatch(resetList())
-  getPokemon();
+const viewMorePokemon = () =>{
+  setInitialCount(initialCount + 12)
 }
 
 const getPokemon = () => {
-  // worked into onclick to get random pokemon
-  fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2000')
+  dispatch(resetList());
+  // worked into onclick to get pokemon
+  fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=${initialCount}`)
+    .then(response=>response.json())
+      .then(res=> {
+        res.results.map((item:any)=>{
+          fetch(item.url)
+            .then(response=>response.json())
+            .then(res=>{
+              dispatch(setIntialList(res));
+            })
+        })
+      })
+}
+
+const getRandomPokemon = () => {
+  dispatch(resetList());
+  // worked into onclick to get pokemon
+  fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10000')
     .then(response=>response.json())
       .then(res=> {
         let i=0;
         do{
-          console.log(res);
-          const pokeUrl = res.results[Math.floor(Math.random() * res.results.length)]; 
-          setList((pokeList: any) => [...pokeList,pokeUrl] );
+          fetch(res.results[Math.floor(Math.random() * res.results.length)].url)
+          .then(response=>response.json())
+          .then(res=>{
+            dispatch(setIntialList(res));
+          })
           i++;
-        } while ( i < initialCount)
+        } while (i < initialCount)
       })
 }
 
 useEffect(()=>{
-  pokeList.forEach((item:any)=>{
-    fetch(item.url)
-      .then( response => response.json())
-      .then( res=>{
-        let merged = {...item,...res}
-
-        dispatch(setIntialList(merged));
-      })
-  })
-}, [pokeList])
+  isAppInialized.value ? getPokemon() : null; 
+},[ isAppInialized ])
 
 useEffect(()=>{
-  isAppInialized.value ? getPokemon() : null; 
-},[isAppInialized])
+  pokemonList.length >= 12 ?  getPokemon() : null; 
+},[ initialCount ])
 
- 
 return (
 <>
   <AdvSearch/>
@@ -78,7 +79,7 @@ return (
           buttonClass="randomize w-100 mb-4 mb-md-0"
           buttonText="Suprise Me!"
           buttonIcon="fa fa-refresh"
-          morePokemon={newList}
+          morePokemon={getRandomPokemon}
         />
       </div>
 
@@ -119,7 +120,7 @@ return (
 
       <div className="col-12 text-center mt-4 px-1 " >
         <Button 
-          morePokemon={addMorePokemon}
+          morePokemon={viewMorePokemon}
           buttonClass="randomize  mb-4 mb-md-0"
           buttonText="View More Pokemon"
           buttonIcon={undefined}
@@ -128,7 +129,7 @@ return (
     </div>
   </div>
 
-  <div className={pokeList.length === initialCount ? "pokeball-container d-none" : "pokeball-container"} >
+  <div className={pokemonList.length === initialCount ? "pokeball-container d-none" : "pokeball-container"} >
         <div className="pokeball-inner">
           <div className="pokeball-top">
             <div className="pokeball-button" onClick={()=>{
