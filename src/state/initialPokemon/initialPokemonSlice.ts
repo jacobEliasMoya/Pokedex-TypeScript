@@ -59,8 +59,10 @@ const intialPokeSlice = createSlice({
     initialState,
     reducers:{
         setIntialList : (state, action:PayloadAction<InitialPokeList>) =>{
-            
-            return [...state,action.payload];
+            return [...state, action.payload];
+        },
+        setReversList : (state, action:PayloadAction<InitialPokeList>) =>{
+            return [action.payload, ...state];
         },
         resetList : ()=>{
             return initialState; 
@@ -68,5 +70,5 @@ const intialPokeSlice = createSlice({
     }
 })
 
-export const {setIntialList,resetList} = intialPokeSlice.actions;
+export const {setIntialList,resetList,setReversList} = intialPokeSlice.actions;
 export default intialPokeSlice.reducer;

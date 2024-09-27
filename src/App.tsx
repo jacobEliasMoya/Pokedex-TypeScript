@@ -5,44 +5,76 @@ import { useSelector } from "react-redux";
 import { Rootstate } from "./state/store";
 import { useDispatch } from "react-redux";
 import { triggerApp } from "./state/mainAppState/appInitializationSlice";
-import { setIntialList,resetList } from "./state/initialPokemon/initialPokemonSlice";
+import { setIntialList,resetList,setReversList  } from "./state/initialPokemon/initialPokemonSlice";
 // placeholder image when sprites not present
 import missingMon from "./assets/missingmon.png"; 
 
 function App() {
 
-const [isRandom,setIsRandom] = useState<boolean>(false)
-const [initialCount,setInitialCount] = useState(12)
+const [isRandom,setIsRandom] = useState<boolean>(false);
+const [initialCount,setIntialCount] = useState(0);
+
 // appinialized state
 const isAppInialized = useSelector((state:Rootstate)=>state.initialAppState); 
 // pokelist state
 const pokemonList = useSelector((state:Rootstate)=>state.intialPokemon);
-
 const dispatch = useDispatch();
 
 const viewMorePokemon = () =>{
-  setInitialCount(initialCount + 12)
+  isRandom ? getRandomPokemon() : getPokemon();
 }
 
-const getPokemon = () => {
-  dispatch(resetList());
-  // worked into onclick to get pokemon
-  fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=${initialCount}`)
-    .then(response=>response.json())
-      .then(res=> {
-        res.results.map((item:any)=>{
-          fetch(item.url)
-            .then(response=>response.json())
-            .then(res=>{
-              dispatch(setIntialList(res));
-            })
-        })
+const handleSearchFilter = (e:any) =>{
+  switch (e.target.value) {
+
+    case 'lowest-first':
+      pokemonList.map((item:any)=>{
+        dispatch(setIntialList(item))
       })
+      break;
+    case 'highest-number':
+      pokemonList.map((item:any)=>{
+      dispatch(setReversList(item))
+    })
+      break;
+
+    case 'a-z':
+    console.log('bam3')
+      break;
+
+    default:
+      console.log('bam4')
+        break;
+  }
+}
+
+// get all pokemon pushed into state, then only displays set amt based on component state
+const getPokemon = async () => {
+  // worked into onclick to get pokemon
+
+  await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${initialCount}&limit=${initialCount + 12}`)
+  .then(response=>response.json())
+  .then(async res=> {
+    let i = 0;
+    do{
+      await fetch(res.results[i].url)
+      .then(results=>results.json())
+      .then(res=>{
+        dispatch(setIntialList(res));
+      })
+      i++;
+    } while(i < 12)
+      
+    })
+
+  setIntialCount(prev=>prev + 12);
+
 }
 
 const getRandomPokemon = () => {
-  setIsRandom(true);
   dispatch(resetList());
+  setIsRandom(true);
+
   // worked into onclick to get pokemon
   fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10000')
     .then(response=>response.json())
@@ -63,15 +95,16 @@ useEffect(()=>{
   isAppInialized.value ? getPokemon() : null; 
 },[ isAppInialized ])
 
+
 useEffect(()=>{
-  pokemonList.length >= 12 && isRandom ? getRandomPokemon() :  getPokemon(); 
+  console.log(initialCount)
 },[ initialCount ])
 
 return (
 <>
   <AdvSearch/>
   
-  <div className={pokemonList.length >= initialCount ? 'large-wrapper ': 'large-wrapper d-none'}>
+  <div className={isAppInialized.value ? 'large-wrapper ': 'large-wrapper d-none'}>
     <div className="w-100 py-5 mt-md-5"></div>
     <div className="row p-4 text-left justify-content-center">
       <div className="col-md-6 col-lg-4 text-center">
@@ -86,8 +119,11 @@ return (
       </div>
 
       <div className="col-md-6 col-lg-4  text-center">
-        <select className="w-100 btn basic-filter" name="" id="">
-          <option value="test">test</option>
+        <select onChange={handleSearchFilter} className="w-100 btn basic-filter" name="" id="">
+          <option value="lowest-first">Lowest Number (First)</option>
+          <option value="highest-number">Highest Number (First)</option>
+          <option value="a-z">A-Z</option>
+          <option value="z-a">Z-A</option>
         </select>
       </div>
       <div className="w-100 pt-5"></div>
@@ -131,7 +167,7 @@ return (
     </div>
   </div>
 
-  <div className={pokemonList.length === initialCount ? "pokeball-container d-none" : "pokeball-container"} >
+  <div className={isAppInialized.value ? "pokeball-container d-none" : "pokeball-container"} >
         <div className="pokeball-inner">
           <div className="pokeball-top">
             <div className="pokeball-button" onClick={()=>{
