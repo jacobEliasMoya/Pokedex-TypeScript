@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Rootstate } from "./state/store";
 import { useDispatch } from "react-redux";
 import { triggerApp } from "./state/mainAppState/appInitializationSlice";
-import { setIntialList,resetList,setReversList  } from "./state/initialPokemon/initialPokemonSlice";
+import { setIntialList,resetList} from "./state/initialPokemon/initialPokemonSlice";
 // placeholder image when sprites not present
 import missingMon from "./assets/missingmon.png"; 
 
@@ -28,22 +28,16 @@ const handleSearchFilter = (e:any) =>{
   switch (e.target.value) {
 
     case 'lowest-first':
-      pokemonList.map((item:any)=>{
-        dispatch(setIntialList(item))
-      })
+
       break;
     case 'highest-number':
-      pokemonList.map((item:any)=>{
-      dispatch(setReversList(item))
-    })
+
       break;
 
     case 'a-z':
-    console.log('bam3')
       break;
 
     default:
-      console.log('bam4')
         break;
   }
 }
@@ -51,20 +45,19 @@ const handleSearchFilter = (e:any) =>{
 // get all pokemon pushed into state, then only displays set amt based on component state
 const getPokemon = async () => {
   // worked into onclick to get pokemon
-
   await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${initialCount}&limit=${initialCount + 12}`)
   .then(response=>response.json())
   .then(async res=> {
-    let i = 0;
+    let i=0;
     do{
       await fetch(res.results[i].url)
-      .then(results=>results.json())
+      .then(response=>response.json())
       .then(res=>{
         dispatch(setIntialList(res));
       })
       i++;
-    } while(i < 12)
-      
+    } while (i < 12)
+ 
     })
 
   setIntialCount(prev=>prev + 12);
@@ -72,9 +65,6 @@ const getPokemon = async () => {
 }
 
 const getRandomPokemon = () => {
-  dispatch(resetList());
-  setIsRandom(true);
-
   // worked into onclick to get pokemon
   fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10000')
     .then(response=>response.json())
@@ -91,14 +81,25 @@ const getRandomPokemon = () => {
       })
 }
 
+const randomizePokemon = () =>{
+  dispatch(resetList());
+  getRandomPokemon();
+  setIsRandom(true);
+}
+
 useEffect(()=>{
   isAppInialized.value ? getPokemon() : null; 
 },[ isAppInialized ])
 
 
+
 useEffect(()=>{
-  console.log(initialCount)
-},[ initialCount ])
+  
+
+},[ isRandom ])
+
+useEffect(() => {
+}, [pokemonList])
 
 return (
 <>
@@ -114,7 +115,7 @@ return (
           buttonClass="randomize w-100 mb-4 mb-md-0"
           buttonText="Suprise Me!"
           buttonIcon="fa fa-refresh"
-          morePokemon={getRandomPokemon}
+          morePokemon={randomizePokemon}
         />
       </div>
 

@@ -26,7 +26,7 @@ interface MovesType{
     move: Array<NameUrlType>,
 }
 
- interface InitialPokeList {
+export interface InitialPokeList {
     abilities: Array<AbilitiesArrObjType>,
     base_experience: number,
     cries: CriesObjType,
@@ -37,11 +37,9 @@ interface MovesType{
     id:number,
     is_default:boolean,
     location_area_encounters: string,
-    // fix tomorrow/ fill in full type
     moves:Array<MovesType>,
     name:string,
     order:number,
-    // fix tomorrow/ fill in full type/ proper typing
     past_abilities:Array<any>,
     past_types:Array<any>,
     species:NameUrlType,
@@ -64,11 +62,17 @@ const intialPokeSlice = createSlice({
         setReversList : (state, action:PayloadAction<InitialPokeList>) =>{
             return [action.payload, ...state];
         },
+        setMergedList : (state, action:PayloadAction<Array<InitialPokeList>>) =>{
+            return [...action.payload, ...state];
+        },
+        setMergedListReverse : (state, action:PayloadAction<Array<InitialPokeList>>) =>{
+            return [...action.payload, ...state].reverse();
+        },
         resetList : ()=>{
             return initialState; 
         }
     }
 })
 
-export const {setIntialList,resetList,setReversList} = intialPokeSlice.actions;
+export const {setIntialList,resetList,setReversList,setMergedList,setMergedListReverse} = intialPokeSlice.actions;
 export default intialPokeSlice.reducer;
