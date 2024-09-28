@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Rootstate } from "./state/store";
 import { useDispatch } from "react-redux";
 import { triggerApp } from "./state/mainAppState/appInitializationSlice";
-import { setIntialList,resetList} from "./state/initialPokemon/initialPokemonSlice";
+import { setIntialList,resetList,  orderHightoLow, orderLowToHigh, orderAlphaAz, orderAlphaZa} from "./state/initialPokemon/initialPokemonSlice";
 // placeholder image when sprites not present
 import missingMon from "./assets/missingmon.png"; 
 
@@ -28,16 +28,21 @@ const handleSearchFilter = (e:any) =>{
   switch (e.target.value) {
 
     case 'lowest-first':
+      dispatch(orderLowToHigh(pokemonList))
 
       break;
     case 'highest-number':
-
+      dispatch(orderHightoLow(pokemonList))
       break;
 
     case 'a-z':
+      dispatch(orderAlphaAz(pokemonList))
+
       break;
 
     default:
+      dispatch(orderAlphaZa(pokemonList))
+
         break;
   }
 }
@@ -53,6 +58,7 @@ const getPokemon = async () => {
       await fetch(res.results[i].url)
       .then(response=>response.json())
       .then(res=>{
+
         dispatch(setIntialList(res));
       })
       i++;
