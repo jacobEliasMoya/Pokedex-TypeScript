@@ -82,9 +82,9 @@ const getRandomPokemon = () => {
 }
 
 const randomizePokemon = () =>{
-  dispatch(resetList());
-  getRandomPokemon();
-  setIsRandom(true);
+    dispatch(resetList());
+    getRandomPokemon();
+    setIsRandom(true);
 }
 
 useEffect(()=>{
@@ -99,6 +99,7 @@ useEffect(()=>{
 },[ isRandom ])
 
 useEffect(() => {
+  !isRandom ?   setIntialCount(0):'';
 }, [pokemonList])
 
 return (
