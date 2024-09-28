@@ -66,7 +66,7 @@ const intialPokeSlice = createSlice({
             return [...action.payload, ...state].sort((a:InitialPokeList,b:InitialPokeList) =>b.id  -a.id);
         },
         orderLowToHigh : (state, action:PayloadAction<Array<InitialPokeList>>) =>{
-            return [...action.payload, ...state].sort((a:InitialPokeList,b:InitialPokeList) =>b.id  -a.id);
+            return [...action.payload, ...state].sort((a:InitialPokeList,b:InitialPokeList) =>a.id  -b.id);
         },
         orderAlphaAz : (state, action:PayloadAction<Array<InitialPokeList>>) =>{
             return [...action.payload, ...state].sort((a,b)=>a.name.localeCompare(b.name));

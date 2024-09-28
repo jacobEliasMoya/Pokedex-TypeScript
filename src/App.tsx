@@ -12,6 +12,7 @@ import missingMon from "./assets/missingmon.png";
 function App() {
 
 const [isRandom,setIsRandom] = useState<boolean>(false);
+const [isFiltered,setIsFiltered] = useState<boolean>(false);
 const [initialCount,setIntialCount] = useState(0);
 
 // appinialized state
@@ -25,6 +26,9 @@ const viewMorePokemon = () =>{
 }
 
 const handleSearchFilter = (e:any) =>{
+
+  setIsFiltered(true);
+
   switch (e.target.value) {
 
     case 'lowest-first':
@@ -105,7 +109,7 @@ useEffect(()=>{
 },[ isRandom ])
 
 useEffect(() => {
-  !isRandom ?   setIntialCount(0):'';
+  !isRandom && !isFiltered ?   setIntialCount(0):'';
 }, [pokemonList])
 
 return (
