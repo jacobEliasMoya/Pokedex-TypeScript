@@ -5,14 +5,13 @@ import { useSelector } from "react-redux";
 import { Rootstate } from "./state/store";
 import { useDispatch } from "react-redux";
 import { triggerApp } from "./state/mainAppState/appInitializationSlice";
-import { setIntialList,resetList,  orderHightoLow, orderLowToHigh, orderAlphaAz, orderAlphaZa} from "./state/initialPokemon/initialPokemonSlice";
+import { setIntialList,resetList,  orderHightoLow, orderLowToHigh, orderAlphaAz, orderAlphaZa, setReversList} from "./state/initialPokemon/initialPokemonSlice";
 // placeholder image when sprites not present
 import missingMon from "./assets/missingmon.png"; 
 
 function App() {
 
 const [isRandom,setIsRandom] = useState<boolean>(false);
-const [isFiltered,setIsFiltered] = useState<boolean>(false);
 const [initialCount,setIntialCount] = useState(0);
 
 // appinialized state
@@ -21,34 +20,25 @@ const isAppInialized = useSelector((state:Rootstate)=>state.initialAppState);
 const pokemonList = useSelector((state:Rootstate)=>state.intialPokemon);
 const dispatch = useDispatch();
 
-const viewMorePokemon = () =>{
-  isRandom ? getRandomPokemon() : getPokemon();
-}
+const viewMorePokemon = () =>{  isRandom ? getRandomPokemon() : getPokemon(); }
 
 const handleSearchFilter = (e:any) =>{
 
-  setIsFiltered(true);
+switch (e.target.value) {
+  case 'lowest-first':
+    dispatch(orderLowToHigh())
+    break;
+  case 'highest-number':
+    dispatch(orderHightoLow())
+    break;
+  case 'a-z':
+    dispatch(orderAlphaAz())
+    break;
+  default:
+    dispatch(orderAlphaZa())
+    break;
+}
 
-  switch (e.target.value) {
-
-    case 'lowest-first':
-      dispatch(orderLowToHigh(pokemonList))
-
-      break;
-    case 'highest-number':
-      dispatch(orderHightoLow(pokemonList))
-      break;
-
-    case 'a-z':
-      dispatch(orderAlphaAz(pokemonList))
-
-      break;
-
-    default:
-      dispatch(orderAlphaZa(pokemonList))
-
-        break;
-  }
 }
 
 // get all pokemon pushed into state, then only displays set amt based on component state
@@ -62,19 +52,19 @@ const getPokemon = async () => {
       await fetch(res.results[i].url)
       .then(response=>response.json())
       .then(res=>{
-
+        
         dispatch(setIntialList(res));
       })
       i++;
     } while (i < 12)
- 
+
     })
 
   setIntialCount(prev=>prev + 12);
 
 }
 
-const getRandomPokemon = () => {
+const getRandomPokemon = async () => {
   // worked into onclick to get pokemon
   fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10000')
     .then(response=>response.json())
@@ -92,104 +82,103 @@ const getRandomPokemon = () => {
 }
 
 const randomizePokemon = () =>{
-    dispatch(resetList());
-    getRandomPokemon();
-    setIsRandom(true);
+
+  setIsRandom(true);
+  dispatch(resetList());
+  getRandomPokemon();
+
 }
 
 useEffect(()=>{
   isAppInialized.value ? getPokemon() : null; 
 },[ isAppInialized ])
 
-
-
-useEffect(()=>{
-  
-
-},[ isRandom ])
-
 useEffect(() => {
-  !isRandom && !isFiltered ?   setIntialCount(0):'';
-}, [pokemonList])
+  if(isRandom && initialCount > 12){
+  } else {
+  }
+
+}, [isRandom])
+
 
 return (
 <>
-  <AdvSearch/>
-  
-  <div className={isAppInialized.value ? 'large-wrapper ': 'large-wrapper d-none'}>
-    <div className="w-100 py-5 mt-md-5"></div>
-    <div className="row p-4 text-left justify-content-center">
-      <div className="col-md-6 col-lg-4 text-center">
+<AdvSearch/>
 
-        {/* should enable functions re this button as a passable onclick */}  
-        <Button 
-          buttonClass="randomize w-100 mb-4 mb-md-0"
-          buttonText="Suprise Me!"
-          buttonIcon="fa fa-refresh"
-          morePokemon={randomizePokemon}
-        />
-      </div>
+<div className={isAppInialized.value ? 'large-wrapper ': 'large-wrapper d-none'}>
+  <div className="w-100 py-5 mt-md-5"></div>
+  <div className="row p-4 text-left justify-content-center">
+    <div className="col-md-6 col-lg-4 text-center">
 
-      <div className="col-md-6 col-lg-4  text-center">
-        <select onChange={handleSearchFilter} className="w-100 btn basic-filter" name="" id="">
-          <option value="lowest-first">Lowest Number (First)</option>
-          <option value="highest-number">Highest Number (First)</option>
-          <option value="a-z">A-Z</option>
-          <option value="z-a">Z-A</option>
-        </select>
-      </div>
-      <div className="w-100 pt-5"></div>
+      {/* should enable functions re this button as a passable onclick */}  
+      <Button 
+        buttonClass="randomize w-100 mb-4 mb-md-0"
+        buttonText="Suprise Me!"
+        buttonIcon="fa fa-refresh"
+        morePokemon={randomizePokemon}
+      />
+    </div>
 
-      { 
-        pokemonList.map((item:any)=>{
-          return(
-          
-            <div className="col-sm-6 col-lg-3 col-md-4  updown text-md-left text-center" >
+    <div className="col-md-6 col-lg-4  text-center">
+      <select onChange={handleSearchFilter} className="w-100 btn basic-filter" name="" id="">
+        <option value="lowest-first">Lowest Number (First)</option>
+        <option value="highest-number">Highest Number (First)</option>
+        <option value="a-z">A-Z</option>
+        <option value="z-a">Z-A</option>
+      </select>
+    </div>
+    <div className="w-100 pt-5"></div>
 
-            <div className="wrap">
-              <img src={item ? item.sprites.front_default : missingMon} alt="" className={item ? 'd-inline' : '' } />
-            </div>
+    { 
+      pokemonList.map((item:any)=>{
+        return(
+        
+          <div className="col-sm-6 col-lg-3 col-md-4  updown text-md-left text-center" >
 
-            <p className="poke-number mb-0 mt-4 h5">{item ? `#${item.id}` : 'Pokemon ID '}</p>
-            <p className="h6 mb-3 text-capitalize">{item ? item.name : 'Pokemon Name'}</p>
+          <div className="wrap">
+            <img src={item ? item.sprites.front_default : missingMon} alt="" className={item ? 'd-inline' : '' } />
+          </div>
 
-            <div className="row p-0 mb-4 text-left justify-content-start ">
+          <p className="poke-number mb-0 mt-4 h5">{item ? `#${item.id}` : 'Pokemon ID '}</p>
+          <p className="h6 mb-3 text-capitalize">{item ? item.name : 'Pokemon Name'}</p>
 
-              {item.types.map((tp:any)=>{
-                return(
-                  <div className="col-md-6 px-1 " >
-                    <p className={item ? `types btn mb-2 mb-md-3 text-capitalize ${tp.type.name.toLowerCase()}` : "types btn mb-4 text-capitalize"}>{item ? tp.type.name : 'Pokemon Name'}</p>
-                  </div>
-                )
-              })}
-            </div>  
+          <div className="row p-0 mb-4 text-left justify-content-start ">
+
+            {item.types.map((tp:any)=>{
+              return(
+                <div className="col-md-6 px-1 " >
+                  <p className={item ? `types btn mb-2 mb-md-3 text-capitalize ${tp.type.name.toLowerCase()}` : "types btn mb-4 text-capitalize"}>{item ? tp.type.name : 'Pokemon Name'}</p>
+                </div>
+              )
+            })}
           </div>  
-          )
-        })
-      }
+        </div>  
+        )
+      })
+    }
 
-      <div className="col-12 text-center mt-4 px-1 " >
-        <Button 
-          morePokemon={viewMorePokemon}
-          buttonClass="randomize  mb-4 mb-md-0"
-          buttonText="View More Pokemon"
-          buttonIcon={undefined}
-        />
-      </div>
+    <div className="col-12 text-center mt-4 px-1 " >
+      <Button 
+        morePokemon={viewMorePokemon}
+        buttonClass="randomize  mb-4 mb-md-0"
+        buttonText="View More Pokemon"
+        buttonIcon={undefined}
+      />
     </div>
   </div>
+</div>
 
-  <div className={isAppInialized.value ? "pokeball-container d-none" : "pokeball-container"} >
-        <div className="pokeball-inner">
-          <div className="pokeball-top">
-            <div className="pokeball-button" onClick={()=>{
-              dispatch(triggerApp())
-            }}>
-            </div>
+<div className={isAppInialized.value ? "pokeball-container d-none" : "pokeball-container"} >
+      <div className="pokeball-inner">
+        <div className="pokeball-top">
+          <div className="pokeball-button" onClick={()=>{
+            dispatch(triggerApp())
+          }}>
           </div>
-          <div className="pokeball-bottom"></div>
-      </div>
-  </div>    
+        </div>
+        <div className="pokeball-bottom"></div>
+    </div>
+</div>    
 
 </>
 )

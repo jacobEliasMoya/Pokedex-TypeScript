@@ -62,17 +62,17 @@ const intialPokeSlice = createSlice({
         setReversList : (state, action:PayloadAction<InitialPokeList>) =>{
             return [action.payload, ...state];
         },
-        orderHightoLow : (state, action:PayloadAction<Array<InitialPokeList>>) =>{
-            return [...action.payload, ...state].sort((a:InitialPokeList,b:InitialPokeList) =>b.id  -a.id);
+        orderHightoLow : (state) =>{
+            return [ ...state].sort((a:InitialPokeList,b:InitialPokeList) =>b.id  -a.id);
         },
-        orderLowToHigh : (state, action:PayloadAction<Array<InitialPokeList>>) =>{
-            return [...action.payload, ...state].sort((a:InitialPokeList,b:InitialPokeList) =>a.id  -b.id);
+        orderLowToHigh : (state) =>{
+            return [...state].sort((a:InitialPokeList,b:InitialPokeList) =>a.id  -b.id);
         },
-        orderAlphaAz : (state, action:PayloadAction<Array<InitialPokeList>>) =>{
-            return [...action.payload, ...state].sort((a,b)=>a.name.localeCompare(b.name));
+        orderAlphaAz : (state) =>{
+            return [...state].sort((a,b)=>a.name.localeCompare(b.name));
         },
-        orderAlphaZa : (state, action:PayloadAction<Array<InitialPokeList>>) =>{
-            return [...action.payload, ...state].sort((a,b)=>b.name.localeCompare(a.name));
+        orderAlphaZa : (state) =>{
+            return [ ...state].sort((a,b)=>b.name.localeCompare(a.name));
         },
         resetList : ()=>{
             return initialState; 
