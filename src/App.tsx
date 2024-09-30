@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Rootstate } from "./state/store";
 import { useDispatch } from "react-redux";
 import { triggerApp } from "./state/mainAppState/appInitializationSlice";
-import { setIntialList,resetList,  orderHightoLow, orderLowToHigh, orderAlphaAz, orderAlphaZa, setReversList} from "./state/initialPokemon/initialPokemonSlice";
+import { setIntialList,resetList,  orderHightoLow, orderLowToHigh, orderAlphaAz, orderAlphaZa} from "./state/initialPokemon/initialPokemonSlice";
 // placeholder image when sprites not present
 import missingMon from "./assets/missingmon.png"; 
 
