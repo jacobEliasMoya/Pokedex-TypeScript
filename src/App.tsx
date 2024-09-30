@@ -24,20 +24,20 @@ const viewMorePokemon = () =>{  isRandom ? getRandomPokemon() : getPokemon(); }
 
 const handleSearchFilter = (e:any) =>{
 
-switch (e.target.value) {
-  case 'lowest-first':
-    dispatch(orderLowToHigh())
+  switch (e.target.value) {
+    case 'lowest-first':
+      dispatch(orderLowToHigh())
     break;
-  case 'highest-number':
-    dispatch(orderHightoLow())
+    case 'highest-number':
+      dispatch(orderHightoLow())
     break;
-  case 'a-z':
-    dispatch(orderAlphaAz())
+    case 'a-z':
+      dispatch(orderAlphaAz())
     break;
-  default:
-    dispatch(orderAlphaZa())
+    default:
+      dispatch(orderAlphaZa())
     break;
-}
+  }
 
 }
 
@@ -133,7 +133,7 @@ return (
       pokemonList.map((item:any)=>{
         return(
         
-          <div className="col-sm-6 col-lg-3 col-md-4  updown text-md-left text-center" >
+          <div className="col-sm-6 col-lg-3 col-md-4  updown text-md-start text-center" >
 
           <div className="wrap">
             <img src={item ? item.sprites.front_default : missingMon} alt="" className={item ? 'd-inline' : '' } />
