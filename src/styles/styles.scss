@@ -197,15 +197,16 @@ body{
             align-items: center;
             background:#F2F2F2;
             border-radius: 10px;
-            padding: 1em;
-
+            &:hover{
+                filter:saturate(1);
+            }
             img{
                 width: 150px;
                 height: 150px;
+                transition: all ease .2s;
+                cursor: pointer;
+
             }
-
-
-
         }
 
         .poke-number{

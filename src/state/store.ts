@@ -9,7 +9,6 @@ export const store = configureStore({
         intialPokemon: initalPokeReducer,
         initialAppState: initialAppStateReducer,
         selectedPokemon: specificPokeReducer
-
     }
 })
 

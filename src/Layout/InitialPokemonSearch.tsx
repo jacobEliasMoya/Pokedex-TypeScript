@@ -137,7 +137,9 @@ pokemonList.map((item:any)=>{
 
 return(
 
-<div className="col-sm-6 col-lg-3 col-md-4  updown text-md-start text-center" >
+  
+
+<div className="col-sm-6 col-lg-3 col-md-4 updown text-md-start text-center" id={item.id}>
 
 <div className="wrap">
   <img 
