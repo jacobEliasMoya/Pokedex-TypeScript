@@ -27,7 +27,6 @@ const selectSpecificPokemon = async (e:any) =>{
   .then( res=> {
     dispatch(selectPokemon(res))
   })
-
 }
 
 const viewMorePokemon = () =>{ 
@@ -108,8 +107,8 @@ getPokemon()
 
   return (
     <>
-    <div className={isAppInialized.value ? 'large-wrapper ': 'large-wrapper d-none'}>
-<div className="w-100 py-5 mt-md-5"></div>
+    <div className={isAppInialized.value ? 'large-wrapper mt-5': 'large-wrapper d-none'}>
+<div className="w-100 py-3"></div>
 <div className="row p-4 text-left justify-content-center">
 <div className="col-md-6 col-lg-4 text-center">
 
@@ -180,7 +179,7 @@ return(
 </div>
 </div>
 
-<div className={isAppInialized.value ? "pokeball-container d-none" : "pokeball-container"} >
+<div className={isAppInialized.value ? "pokeball-container d-none" : "pokeball-container mt-5"} >
 <div className="pokeball-inner">
 <div className="pokeball-top">
 <div className="pokeball-button" onClick={()=>{

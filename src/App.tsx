@@ -16,7 +16,9 @@ function App() {
 
   return (
     <>
-      <AdvSearch/>
+      
+      {!selectedPokemon.name ? <AdvSearch/>: ''}
+
       {!selectedPokemon.name ? <InitialPokemonSearch/> : <PokemonDetailedView/>}
     </>
   )

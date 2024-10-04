@@ -10,16 +10,19 @@ $grey2:#222;
 $grey3:#333;
 $grey4:#616161;
 
+*{
+    box-sizing: border-box;
+}
 body{
     background-image: url(../assets/container_bg.png);
     background-size: cover;
-    font-family: Arial, Helvetica, sans-serif;
     min-width: 100vw;
     min-height: 100vh;
     height: auto;
     overflow: scroll;
     overflow-x: hidden;
     margin: 0 ;
+    font-family: "Ubuntu", sans-serif !important;
 
     a{
         cursor: pointer;
@@ -28,6 +31,7 @@ body{
     #root{
 
         @include flexM();
+        justify-content: start;
         margin: auto;
         min-height: 100vh;
         background-image: url(../assets/container_bg.png);
@@ -46,20 +50,69 @@ body{
             text-decoration: none;
         }
 
-        h1{
-            text-align: center;
+        h1,h2,h3,h4,h5,h6{
             margin-top: 0px;
             margin-bottom: 1em;
-            font-weight: 800;
-            text-shadow: .5em .25em .65em #020840, -.5em -.25em .65em #3949d5;
-            text-transform: capitalize;
             line-height: 1;
+            text-transform: capitalize;
+            font-weight: 400;
         }
 
+        .inner{
+            color: #616161;
+        }
 
+        .prev-next-evolution{
+
+            .btn{
+                background-color: #a4a4a4;
+                &:hover{
+                    background-color: #30a7d7;
+                }
+            }
+        }
+
+        .selected-pokemon-outer{
+            .pokemon-sprite{
+                width: 60%;
+            }
+            .stats-box,.pokeSpecs-box{
+                background-color: #a4a4a4;
+                padding: 1em;
+                .hp,.attack,.defense,.spcak,.spcdef,.speed{
+                    @include flexM();
+                    gap:3px;
+                    padding: 0px;
+                    .bar{
+                        width: 100%;
+                        height: 5px;
+                        background-color: white;
+                    }
+
+                }
+
+            }
+            .pokeSpecs-box{
+                background-color: #30a7d7;
+                h3{
+                    color: #fff;
+                    margin-bottom: .25em;
+                }
+            }
+
+            h2{
+                font-size: 1.25em;
+                text-align: left;
+                font-weight: 400;
+                margin-bottom: .5em;
+            }
+            h3{
+                font-size: .6em;
+                font-weight: 600;
+            }
+        }
 
         .btn{
-
             background: maroon;
             color: #fff;
             border:none;
@@ -68,7 +121,6 @@ body{
             letter-spacing: 2px;
             border-radius: 10px;
             cursor: pointer;
-
         }
 
         .randomize{
@@ -92,10 +144,8 @@ body{
             @include flexM();
             justify-content: end;
             border:0px;
-            position: fixed;
-            top:0;
-            left:0;
             z-index: 11;
+            margin-bottom: 2em;
 
             .advanced-search-btn{
                 padding: .45em 1.25em;
@@ -183,8 +233,6 @@ body{
                 transform: translate(0,-10px); 
 
                 .pokeball-top{
-
-
                     .pokeball-button{
                         box-shadow: 0em .5em 1em rgba(0, 0, 0, 0.274);
                     }
@@ -193,13 +241,16 @@ body{
         }
 
         .row .wrap{
+            
             @include flexM();
             align-items: center;
             background:#F2F2F2;
             border-radius: 10px;
+
             &:hover{
                 filter:saturate(1);
             }
+
             img{
                 width: 150px;
                 height: 150px;
@@ -297,7 +348,7 @@ body{
 
         .large-wrapper{
             width: 100%;
-            max-width: 80%;
+            max-width: 1050px;
             margin: 0 auto;
             background-color: #fff;
 

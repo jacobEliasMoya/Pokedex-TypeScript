@@ -1,13 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-image: url(../assets/container_bg.png);
   background-size: cover;
-  font-family: Arial, Helvetica, sans-serif;
   min-width: 100vw;
   min-height: 100vh;
   height: auto;
   overflow: scroll;
   overflow-x: hidden;
   margin: 0;
+  font-family: "Ubuntu", sans-serif !important;
 }
 body a {
   cursor: pointer;
@@ -17,6 +21,7 @@ body #root {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  justify-content: start;
   margin: auto;
   min-height: 100vh;
   background-image: url(../assets/container_bg.png);
@@ -32,14 +37,58 @@ body #root a {
   color: initial;
   text-decoration: none;
 }
-body #root h1 {
-  text-align: center;
+body #root h1, body #root h2, body #root h3, body #root h4, body #root h5, body #root h6 {
   margin-top: 0px;
   margin-bottom: 1em;
-  font-weight: 800;
-  text-shadow: 0.5em 0.25em 0.65em #020840, -0.5em -0.25em 0.65em #3949d5;
-  text-transform: capitalize;
   line-height: 1;
+  text-transform: capitalize;
+  font-weight: 400;
+}
+body #root .inner {
+  color: #616161;
+}
+body #root .prev-next-evolution .btn {
+  background-color: #a4a4a4;
+}
+body #root .prev-next-evolution .btn:hover {
+  background-color: #30a7d7;
+}
+body #root .selected-pokemon-outer .pokemon-sprite {
+  width: 60%;
+}
+body #root .selected-pokemon-outer .stats-box, body #root .selected-pokemon-outer .pokeSpecs-box {
+  background-color: #a4a4a4;
+  padding: 1em;
+}
+body #root .selected-pokemon-outer .stats-box .hp, body #root .selected-pokemon-outer .stats-box .attack, body #root .selected-pokemon-outer .stats-box .defense, body #root .selected-pokemon-outer .stats-box .spcak, body #root .selected-pokemon-outer .stats-box .spcdef, body #root .selected-pokemon-outer .stats-box .speed, body #root .selected-pokemon-outer .pokeSpecs-box .hp, body #root .selected-pokemon-outer .pokeSpecs-box .attack, body #root .selected-pokemon-outer .pokeSpecs-box .defense, body #root .selected-pokemon-outer .pokeSpecs-box .spcak, body #root .selected-pokemon-outer .pokeSpecs-box .spcdef, body #root .selected-pokemon-outer .pokeSpecs-box .speed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0px;
+}
+body #root .selected-pokemon-outer .stats-box .hp .bar, body #root .selected-pokemon-outer .stats-box .attack .bar, body #root .selected-pokemon-outer .stats-box .defense .bar, body #root .selected-pokemon-outer .stats-box .spcak .bar, body #root .selected-pokemon-outer .stats-box .spcdef .bar, body #root .selected-pokemon-outer .stats-box .speed .bar, body #root .selected-pokemon-outer .pokeSpecs-box .hp .bar, body #root .selected-pokemon-outer .pokeSpecs-box .attack .bar, body #root .selected-pokemon-outer .pokeSpecs-box .defense .bar, body #root .selected-pokemon-outer .pokeSpecs-box .spcak .bar, body #root .selected-pokemon-outer .pokeSpecs-box .spcdef .bar, body #root .selected-pokemon-outer .pokeSpecs-box .speed .bar {
+  width: 100%;
+  height: 5px;
+  background-color: white;
+}
+body #root .selected-pokemon-outer .pokeSpecs-box {
+  background-color: #30a7d7;
+}
+body #root .selected-pokemon-outer .pokeSpecs-box h3 {
+  color: #fff;
+  margin-bottom: 0.25em;
+}
+body #root .selected-pokemon-outer h2 {
+  font-size: 1.25em;
+  text-align: left;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+}
+body #root .selected-pokemon-outer h3 {
+  font-size: 0.6em;
+  font-weight: 600;
 }
 body #root .btn {
   background: maroon;
@@ -71,10 +120,8 @@ body #root .advanced-search {
   flex-direction: column;
   justify-content: end;
   border: 0px;
-  position: fixed;
-  top: 0;
-  left: 0;
   z-index: 11;
+  margin-bottom: 2em;
 }
 body #root .advanced-search .advanced-search-btn {
   padding: 0.45em 1.25em;
@@ -251,7 +298,7 @@ body #root .updown:hover {
 }
 body #root .large-wrapper {
   width: 100%;
-  max-width: 80%;
+  max-width: 1050px;
   margin: 0 auto;
   background-color: #fff;
 }
