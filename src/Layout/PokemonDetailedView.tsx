@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Rootstate } from "../state/store"
 import { InitialPokeList } from "../state/initialPokemon/initialPokemonSlice";
+import { selectPokemon } from "../state/selectedPokemon/selectedPokemonSlice";
 
 export default function PokemonDetailedView() {
 
@@ -9,6 +10,7 @@ export default function PokemonDetailedView() {
         name:string,
         url:string
     }
+
     interface StringObj {
         flavor_text:string | undefined,
         language:NameUrl | undefined,
@@ -17,13 +19,16 @@ export default function PokemonDetailedView() {
     
     const currentSelection = useSelector((state:Rootstate)=>state.selectedPokemon) 
     const [speciesSpecifics,setSpeciesSpecifics] = useState<any>(); 
+    const [evolutionChain,setEvolutionChain] = useState<any>(); 
+    const dispatch = useDispatch();
+
 
     const fetchSpeciesSpecs = async (e:InitialPokeList) =>{
         await fetch(e.species.url)
-        .then(response=>response.json())
-        .then( res=> {
-            setSpeciesSpecifics(res)
-        })
+            .then(response=>response.json())
+                .then( res=> {
+                    setSpeciesSpecifics(res)
+                })
     }
 
     const returnEnglishSnippet = (stringArr:Array<StringObj>) => {
@@ -31,7 +36,6 @@ export default function PokemonDetailedView() {
         let index:number = 0;
 
         do{
-            
             let string:any = stringArr[index].flavor_text;
             let newString = string.replaceAll("\f","").replaceAll("\n", " ").replaceAll(".", ". ").replace(/POKéMON/g,"Pokemon");
             let isEng:boolean = /^[a-zA-Z0-9\s.,!?;:'"()-]+$/.test(newString);
@@ -43,27 +47,58 @@ export default function PokemonDetailedView() {
                 index = 0;
                 return `Non-English Desc: ${newString}.`
             }
-
         } while ( index < 1)
     }
  
+    const selectPrevPokemon = async () =>{
+        await fetch(`https://pokeapi.co/api/v2/pokemon/${ currentSelection.id - 1}/`)
+          .then(response=>response.json())
+            .then( res=> {
+                dispatch(selectPokemon(res))
+            })
+    }
+
+    const getEvolutionChain = async () =>{
+        await fetch(`https://pokeapi.co/api/v2/evolution-chain/${currentSelection.id}/`)
+          .then(response=>response.json())
+            .then( res=> {
+                setEvolutionChain(res)
+            })
+    }
+
+    const selectNextPokemon = async () =>{
+        await fetch(`https://pokeapi.co/api/v2/pokemon/${currentSelection.id + 1}/`)
+          .then(response=>response.json())
+            .then( res=> {
+                dispatch(selectPokemon(res))
+            })
+    }
+
     useEffect(()=>{
-        console.log(currentSelection)
         fetchSpeciesSpecs(currentSelection)
     },[currentSelection])
 
+    useEffect(()=>{
+        console.log(evolutionChain)
+        evolutionChain ? console.log(evolutionChain.chain.species.name) : '' ;
+    },[evolutionChain])
+
+    useEffect(()=>{
+        getEvolutionChain()
+    },[ ])
+    
   return (
     < >
-        <div className="large-wrapper pt-5">
+        <div className="large-wrapper ">
             <div className="row justify g-1 prev-next-evolution justify-content-center">
-                <div className="col-md-6  text-center">
-                    <button className="btn w-100 rounded-0">[ID] [PrevPokemonName] </button>
+                <div onClick={selectPrevPokemon} className="col-md-6  text-center">
+                    <button  className="btn w-100 rounded-0">[ID] [PrevPokemonName] </button>
                     </div>
                 <div className="col-md-6   text-center">
-                    <button className="btn w-100 rounded-0">[ID] [Next PokemonName] </button>
+                    <button onClick={selectNextPokemon} className="btn w-100 rounded-0">[ID] [Next PokemonName] </button>
                 </div>
             </div>
-            <div className="row justify px-5 py-4 selected-pokemon-outer justify-content-center">
+            <div   className="row justify px-5 py-4 selected-pokemon-outer justify-content-center">
 
                 <div className="col-12 pt-4 pb-3 text-center px-4">
                     <h1 className="h2" >{currentSelection.name} <span className="inner">{`#${currentSelection.id}`}</span></h1>
@@ -167,7 +202,7 @@ export default function PokemonDetailedView() {
 
                 </div>
                 <div className="col-12 pt-5 pb-3 text-center">
-                    [evoultions]
+                    {evolutionChain ? '' : ''}
                 </div>
 
             </div>
