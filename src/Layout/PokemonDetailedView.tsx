@@ -121,7 +121,7 @@ export default function PokemonDetailedView() {
 
   return (
     < >
-        <div className="large-wrapper pt-5">
+        <div className="large-wrapper pt-md-5">
             <div className="row justify g-1 prev-next-evolution justify-content-center">
                 <div onClick={selectPrevPokemon} className="col-6  text-center">
                     <button  className="btn w-100 prevnext rounded-0"><span className="inner-id">#{currentSelection.id - 1}</span> {prevPokemon?.name} </button>
