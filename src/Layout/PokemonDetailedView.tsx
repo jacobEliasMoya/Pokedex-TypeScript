@@ -123,10 +123,10 @@ export default function PokemonDetailedView() {
     < >
         <div className="large-wrapper pt-5">
             <div className="row justify g-1 prev-next-evolution justify-content-center">
-                <div onClick={selectPrevPokemon} className="col-md-6  text-center">
+                <div onClick={selectPrevPokemon} className="col-6  text-center">
                     <button  className="btn w-100 prevnext rounded-0"><span className="inner-id">#{currentSelection.id - 1}</span> {prevPokemon?.name} </button>
                     </div>
-                <div className="col-md-6   text-center">
+                <div className="col-6   text-center">
                     <button onClick={selectNextPokemon} className="btn w-100 prevnext rounded-0"><span className="inner-id">#{currentSelection.id + 1}</span>  {nextPokemon?.name}  </button>
                 </div>
             </div>
