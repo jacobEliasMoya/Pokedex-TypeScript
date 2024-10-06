@@ -123,6 +123,14 @@ body{
             cursor: pointer;
         }
 
+        .prevnext{
+            color: #616161;
+            font-weight: bold;
+            text-transform: capitalize;
+            .inner-id{
+                color: #fff;
+            }
+         }
         .randomize{
             background: #30a7d7;
         }
@@ -145,7 +153,6 @@ body{
             justify-content: end;
             border:0px;
             z-index: 11;
-            margin-bottom: 2em;
 
             .advanced-search-btn{
                 padding: .45em 1.25em;

@@ -104,7 +104,7 @@ useEffect(()=>{
 
 return (
 <>
-  <div className={isAppInialized.value ? 'large-wrapper ': 'large-wrapper d-none'}>
+  <div className={isAppInialized.value ? 'large-wrapper pt-5': 'large-wrapper d-none'}>
     <div className="w-100 py-3"></div>
       <div className="row p-4 text-left justify-content-center">
         <div className="col-md-6 col-lg-4 text-center">

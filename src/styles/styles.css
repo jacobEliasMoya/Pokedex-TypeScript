@@ -100,6 +100,14 @@ body #root .btn {
   border-radius: 10px;
   cursor: pointer;
 }
+body #root .prevnext {
+  color: #616161;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+body #root .prevnext .inner-id {
+  color: #fff;
+}
 body #root .randomize {
   background: #30a7d7;
 }
@@ -121,7 +129,6 @@ body #root .advanced-search {
   justify-content: end;
   border: 0px;
   z-index: 11;
-  margin-bottom: 2em;
 }
 body #root .advanced-search .advanced-search-btn {
   padding: 0.45em 1.25em;
