@@ -67,20 +67,22 @@ export default function PokemonDetailedView() {
             }
         } while ( index < 1)
     }
- 
-    const selectPrevPokemon = async () =>{
-        await fetch(`https://pokeapi.co/api/v2/pokemon/${ currentSelection.id - 1}/`)
-          .then(response=>response.json())
-            .then( res=> {
-                dispatch(selectPokemon(res))
-            })
-    }
 
     const getEvolutionChain = async () =>{
         await fetch(`https://pokeapi.co/api/v2/evolution-chain/${currentSelection.id}/`)
           .then(response=>response.json())
             .then( res=> {
+
                 setEvolutionChain(res)
+            })
+    }
+
+    const selectPrevPokemon = async () =>{
+
+        await fetch(`${currentSelection.id === 1 ? prevPokemon?.url : `https://pokeapi.co/api/v2/pokemon/${currentSelection.id - 1}` }/`)
+          .then(response=>response.json())
+            .then( res=> {
+                dispatch(selectPokemon(res))
             })
     }
 
@@ -92,6 +94,7 @@ export default function PokemonDetailedView() {
             })
     }
 
+    
     useEffect(()=>{
         fetchSpeciesSpecs(currentSelection);
     },[currentSelection])
@@ -99,16 +102,13 @@ export default function PokemonDetailedView() {
     useEffect(()=>{
     },[evolutionChain])
 
-    useEffect(()=>{
-        getPokemon();
-        getEvolutionChain();
-    },[])
+
     
     useEffect(()=>{
-        if(prevnextPokemonName){
+        if(prevnextPokemonName){ 
             prevnextPokemonName.filter((i:NameUrl)=>{
                 if(i.name === currentSelection.name){
-                    setPrevPokemon(prevnextPokemonName[prevnextPokemonName.indexOf(i) - 1])
+                    setPrevPokemon(prevnextPokemonName[prevnextPokemonName.indexOf(i)  === 0 ? prevnextPokemonName.length - 1 : prevnextPokemonName.indexOf(i) - 1])
                     setNextPokemon(prevnextPokemonName[prevnextPokemonName.indexOf(i) + 1])
                 }
             })
@@ -116,9 +116,12 @@ export default function PokemonDetailedView() {
     },[[prevnextPokemonName]])
 
     useEffect(()=>{
-        console.log(prevPokemon)
-    },[prevPokemon])
+        getPokemon();
+        getEvolutionChain();
+    },[])
 
+    useEffect(()=>{
+     },[prevPokemon])
   return (
     < >
         <div className="large-wrapper pt-md-5">
