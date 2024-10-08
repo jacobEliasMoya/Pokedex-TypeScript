@@ -16,11 +16,6 @@ export default function PokemonDetailedView() {
         url:string
     }
 
-    interface StringObj {
-        flavor_text:string | undefined,
-        language:NameUrl | undefined,
-        version:NameUrl | undefined
-    }
     
     const currentSelection = useSelector((state:Rootstate)=>state.selectedPokemon) 
     const [speciesSpecifics,setSpeciesSpecifics] = useState<any>(); 
@@ -48,25 +43,6 @@ export default function PokemonDetailedView() {
                 setPrevnextPokemonName(res.results)
               })
         }
-
-    const returnEnglishSnippet = (stringArr:Array<StringObj>) => {
-
-        let index:number = 0;
-
-        do{
-            let string:any = stringArr[index].flavor_text;
-            let newString = string.replaceAll("\f","").replaceAll("\n", " ").replaceAll(".", ". ").replace(/POKéMON/g,"Pokemon");
-            let isEng:boolean = /^[a-zA-Z0-9\s.,!?;:'"()-]+$/.test(newString);
-
-            if(isEng){
-                index++;
-                return newString
-            } else {
-                index = 0;
-                return `Non-English Desc: ${newString}.`
-            }
-        } while ( index < 1)
-    }
 
     const getEvolutionChain = async () =>{
         await fetch(`https://pokeapi.co/api/v2/evolution-chain/${currentSelection.id}/`)
@@ -96,6 +72,7 @@ export default function PokemonDetailedView() {
 
     
     useEffect(()=>{
+        console.log(currentSelection)
         fetchSpeciesSpecs(currentSelection);
     },[currentSelection])
 
@@ -121,7 +98,8 @@ export default function PokemonDetailedView() {
     },[])
 
     useEffect(()=>{
-     },[prevPokemon])
+        console.log(speciesSpecifics)
+     },[speciesSpecifics])
   return (
     < >
         <div className="large-wrapper pt-md-5">
@@ -144,7 +122,12 @@ export default function PokemonDetailedView() {
                    <img className="pokemon-sprite" src={currentSelection.sprites.front_default}/> 
                 </div>
                 <div className="col-md-6 px-4">
-                    {speciesSpecifics ? returnEnglishSnippet(speciesSpecifics.flavor_text_entries) : 'no'}
+                    {speciesSpecifics ? speciesSpecifics.flavor_text_entries.map((text:any)=>{
+                         return(
+                            text.language.name === 'en' ? <p className='poke-desc'> {text.flavor_text.replaceAll("\f","").replaceAll("\n", " ").replaceAll(".", ". ")} </p>
+                            : null
+                        )
+                    }) : 'no'}
                     <h3 className="pb-2 pt-3">Versions:</h3>
                     <div className="pokeSpecs-box rounded row text-left mb-3">
                         <div className="row">
@@ -158,7 +141,19 @@ export default function PokemonDetailedView() {
                             </div>
                             <div className="col-md-6 p-0">
                                 <h3>Cetegory</h3>
+                                {speciesSpecifics ? speciesSpecifics.genera.map((item:any)=>{
+                                    if(item.language.name==='en'){
+                                        return(<p>{item.genus}</p>)
+                                    }
+                                }) : ''} 
                                 <h3>Abilities</h3>
+                                {
+                                    currentSelection ? currentSelection.abilities.map((ability:any)=>{
+                                        return(
+                                            ability.is_hidden ? null : <p>{ability.ability.name}</p>
+                                        )
+                                    }) : null
+                                }
                             </div>
                         </div>
                     </div>
@@ -166,59 +161,19 @@ export default function PokemonDetailedView() {
                 <div className="col-md-6 px-4">
                     <div className="stats-box rounded row text-center mb-3 mb-md-0">
                         <h2 className="h5">Stats</h2>
-                        <div className="col-md-2 hp px-1 col">
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <h3 className="">HP</h3>
-                        </div>
-                        <div className="col-md-2 attack px-1 col">
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <h3 className="">Attack</h3>
+                        {
+                            currentSelection ? currentSelection.stats.map(item=>{
+                                return(
+                                    <div className="col-md-2 hp px-1 col">
+                                    <div className="bar active"></div>
+                                    {  item.base_stat}
+                                    <h3 className="">{item.stat.name}</h3>
+                                    </div>                                
+                                )
+                            }) : null
+                        }
+                       
 
-                        </div>
-                        <div className="col-md-2 defense px-1 col">
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <h3 className="">Defense</h3>
-
-                        </div>
-                        <div className="col-md-2 spcak px-1 col">
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <h3 className="">Special Attack</h3>
-
-                        </div>
-                        <div className="col-md-2 spcdef px-1 col">
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <h3 className="">Special Defense</h3>
-
-                        </div>
-                        <div className="col-md-2 speed px-1 col">
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <div className="bar"></div>
-                            <h3 className="">Speed</h3>
-
-                        </div>
                     </div>
                 </div>
                 <div className="col-md-6 text-left px-4">

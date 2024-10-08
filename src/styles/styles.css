@@ -53,10 +53,14 @@ body #root .prev-next-evolution .btn {
 body #root .prev-next-evolution .btn:hover {
   background-color: #30a7d7;
 }
+body #root .selected-pokemon-outer .poke-desc:not(.poke-desc:first-child) {
+  display: none;
+}
 body #root .selected-pokemon-outer .pokemon-sprite {
   width: 60%;
 }
 body #root .selected-pokemon-outer .stats-box, body #root .selected-pokemon-outer .pokeSpecs-box {
+  text-transform: capitalize;
   background-color: #a4a4a4;
   padding: 1em;
 }
@@ -65,13 +69,17 @@ body #root .selected-pokemon-outer .stats-box .hp, body #root .selected-pokemon-
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  justify-content: start;
   gap: 3px;
   padding: 0px;
 }
 body #root .selected-pokemon-outer .stats-box .hp .bar, body #root .selected-pokemon-outer .stats-box .attack .bar, body #root .selected-pokemon-outer .stats-box .defense .bar, body #root .selected-pokemon-outer .stats-box .spcak .bar, body #root .selected-pokemon-outer .stats-box .spcdef .bar, body #root .selected-pokemon-outer .stats-box .speed .bar, body #root .selected-pokemon-outer .pokeSpecs-box .hp .bar, body #root .selected-pokemon-outer .pokeSpecs-box .attack .bar, body #root .selected-pokemon-outer .pokeSpecs-box .defense .bar, body #root .selected-pokemon-outer .pokeSpecs-box .spcak .bar, body #root .selected-pokemon-outer .pokeSpecs-box .spcdef .bar, body #root .selected-pokemon-outer .pokeSpecs-box .speed .bar {
   width: 100%;
-  height: 5px;
+  height: 3px;
   background-color: white;
+}
+body #root .selected-pokemon-outer .stats-box .hp .bar.active, body #root .selected-pokemon-outer .stats-box .attack .bar.active, body #root .selected-pokemon-outer .stats-box .defense .bar.active, body #root .selected-pokemon-outer .stats-box .spcak .bar.active, body #root .selected-pokemon-outer .stats-box .spcdef .bar.active, body #root .selected-pokemon-outer .stats-box .speed .bar.active, body #root .selected-pokemon-outer .pokeSpecs-box .hp .bar.active, body #root .selected-pokemon-outer .pokeSpecs-box .attack .bar.active, body #root .selected-pokemon-outer .pokeSpecs-box .defense .bar.active, body #root .selected-pokemon-outer .pokeSpecs-box .spcak .bar.active, body #root .selected-pokemon-outer .pokeSpecs-box .spcdef .bar.active, body #root .selected-pokemon-outer .pokeSpecs-box .speed .bar.active {
+  background-color: #30a7d7;
 }
 body #root .selected-pokemon-outer .pokeSpecs-box {
   background-color: #30a7d7;

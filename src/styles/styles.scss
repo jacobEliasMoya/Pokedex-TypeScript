@@ -73,20 +73,30 @@ body{
         }
 
         .selected-pokemon-outer{
+
+            .poke-desc:not(.poke-desc:first-child){
+                display: none;
+            }
             .pokemon-sprite{
                 width: 60%;
             }
             .stats-box,.pokeSpecs-box{
+                text-transform: capitalize;
                 background-color: #a4a4a4;
                 padding: 1em;
                 .hp,.attack,.defense,.spcak,.spcdef,.speed{
                     @include flexM();
+                    justify-content: start;
                     gap:3px;
                     padding: 0px;
                     .bar{
                         width: 100%;
-                        height: 5px;
+                        height: 3px;
                         background-color: white;
+                    }
+                    .bar.active{
+                        background-color: #30a7d7;
+
                     }
 
                 }
