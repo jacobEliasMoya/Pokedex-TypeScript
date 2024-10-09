@@ -26,6 +26,146 @@ export default function PokemonDetailedView() {
 
     const dispatch = useDispatch();
 
+    const setWeaknesses = (type:string) =>{
+        switch (type) {
+            case 'grass':
+            case 'bug':
+                return (
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize fire">Fire</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize rock">Rock</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize flying">Flying</p></div>
+                    </>
+                );
+            break;
+            case 'poison':
+                return (
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize psychic">Psychic</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize ground">Ground</p></div>
+                    </>
+                );
+            break;
+            case 'fire':
+                return(
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize water">Water</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize rock">Rock</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize ground">Ground</p></div>
+                    </>
+                )
+
+            break;
+            case 'flying':
+                return(
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize electric">Electric</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize rock">Rock</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize ice">Ice</p></div>
+                    </>
+                )
+            break;
+            case 'water':
+                return(
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize electric">Electric</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize grass">Grass</p></div>
+                    </>
+                )
+            break;
+            case 'normal':
+                return(
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize fighting">Fighting</p></div>
+                    </>
+                )
+            break;
+            case 'electric':
+                return(
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize ground">Ground</p></div>
+                    </>
+                )
+            break;
+            case 'ground':
+                return(
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize water">Water</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize ice">Ice</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize grass">Grass</p></div>
+                    </>
+                )
+            break;
+            case 'fairy':
+                return (
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize poison">Poison</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize steel">Steel</p></div>
+                    </>
+                );
+            break;
+            case 'fighting':
+                return(
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize fairy">Fairy</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize flying">Flying</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize psychic">Psychic</p></div>
+                    </>
+                )
+            break;
+            case 'psychic':
+                return(
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize bug">Bug</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize dark">Dark</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize ghost">Ghost</p></div>
+                    </>
+                )
+            break;
+            case 'rock':
+                return (
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize fighting">Fighting</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize grass">Grass</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize ground">Ground</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize steel">Steel</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize water">Water</p></div>
+                    </>
+                );
+            break;
+            case 'steel':
+                return(
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize fire">Fire</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize fighting">Fighting</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize ground">Ground</p></div>
+                    </>
+                )
+            break;
+            case 'ice':
+                return(
+
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize fire">Fire</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize rock">Rock</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize fighting">Fighting</p></div>
+                    </>
+                )
+            break;
+            case 'ghost':
+                return(
+
+                    <>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize dark">Dark</p></div>
+                        <div className="col-md-4 px-1 " ><p className="types w-100 btn mb-2 mb-md-3 text-capitalize ghost">Ghost</p></div>
+                    </>
+                )
+            break;
+            default:
+                break;
+        }
+        return 'asd';
+    }
 
     const fetchSpeciesSpecs = async (e:InitialPokeList) =>{
         await fetch(e.species.url)
@@ -43,6 +183,8 @@ export default function PokemonDetailedView() {
                 setPrevnextPokemonName(res.results)
               })
         }
+
+    
 
     const getEvolutionChain = async () =>{
         await fetch(`https://pokeapi.co/api/v2/evolution-chain/${currentSelection.id}/`)
@@ -166,7 +308,7 @@ export default function PokemonDetailedView() {
                                 return(
                                     <div className="col-md-2 hp px-1 col">
                                     <div className="bar active"></div>
-                                    {  item.base_stat}
+                                    { item.base_stat }
                                     <h3 className="">{item.stat.name}</h3>
                                     </div>                                
                                 )
@@ -188,8 +330,17 @@ export default function PokemonDetailedView() {
                         })}
                     </div>
                     <h3 className="mt-3">Weakness</h3>
-                    [weakness] [weakness] [weakness]
-
+                    <div className="row">
+                    {
+                        currentSelection ? currentSelection.types.map(item=>{
+                                    return(
+                                        <>
+                                            {setWeaknesses(item.type.name)}
+                                        </>
+                                    )
+                                }) : null
+                    }
+                </div>
                 </div>
                 <div className="col-12 pt-5 pb-3 text-center">
                     {evolutionChain ? '' : ''}
