@@ -102,6 +102,10 @@ useEffect(()=>{
   }
 },[pokemonList])
 
+useEffect((()=>{
+  dispatch(triggerApp())
+  
+}),[])
 return (
 <>
   <div className={isAppInialized.value ? 'large-wrapper pt-5': 'large-wrapper d-none'}>
@@ -171,17 +175,7 @@ return (
       </div>
     </div>
 
-  <div className={isAppInialized.value ? "pokeball-container d-none" : "pokeball-container mt-5"} >
-    <div className="pokeball-inner">
-      <div className="pokeball-top">
-        <div className="pokeball-button" onClick={()=>{
-        dispatch(triggerApp())
-        }}>
-        </div>
-      </div>
-      <div className="pokeball-bottom"></div>
-    </div>
-  </div>    
+
 </>
 )
 }
