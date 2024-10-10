@@ -75,7 +75,7 @@ export default function PokemonDetailedView() {
                 return ["fire","fighting","rock"]
             break;
             case 'ghost':
-                return ["dark","ghost"]
+                return ["dark","ghost","fighting"]
             break;
             case 'dark':
                 return ["fairy","fighting","bug"]
@@ -100,9 +100,7 @@ export default function PokemonDetailedView() {
               .then(async res=> {
                 setPrevnextPokemonName(res.results)
               })
-        }
-
-    
+    }
 
     const getEvolutionChain = async () =>{
         await fetch(`https://pokeapi.co/api/v2/evolution-chain/${currentSelection.id}/`)
@@ -167,9 +165,10 @@ export default function PokemonDetailedView() {
         getEvolutionChain();
     },[])
 
-    useEffect(()=>{
-        console.log(speciesSpecifics)
-     },[speciesSpecifics])
+    // useEffect(()=>{
+    //     console.log(speciesSpecifics)
+    //  },[speciesSpecifics])
+
   return (
     < >
         <div className="large-wrapper pt-md-5">
