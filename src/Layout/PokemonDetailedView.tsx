@@ -113,6 +113,7 @@ export default function PokemonDetailedView() {
 
     const selectPrevPokemon = async () =>{
 
+        setPokeWeakness([])
         await fetch(`${currentSelection.id === 1 ? prevPokemon?.url : `https://pokeapi.co/api/v2/pokemon/${currentSelection.id - 1}` }/`)
           .then(response=>response.json())
             .then( res=> {
@@ -121,6 +122,7 @@ export default function PokemonDetailedView() {
     }
 
     const selectNextPokemon = async () =>{
+        setPokeWeakness([])
         await fetch(`https://pokeapi.co/api/v2/pokemon/${currentSelection.id + 1}/`)
           .then(response=>response.json())
             .then( res=> {
