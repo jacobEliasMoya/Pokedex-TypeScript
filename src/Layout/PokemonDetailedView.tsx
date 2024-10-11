@@ -23,6 +23,7 @@ export default function PokemonDetailedView() {
     const[prevPokemon,setPrevPokemon] = useState<NameID>();
     const[nextPokemon,setNextPokemon] = useState<NameID>();
     const[pokeWeaknesses,setPokeWeakness] = useState<string[]>([]);
+    const[abilityInfo,setAbilityInfo] = useState<string[]>([]);
 
     const dispatch = useDispatch();
 
@@ -111,6 +112,21 @@ export default function PokemonDetailedView() {
             })
     }
 
+   
+    const getAbilityInfo = async () =>{
+        let tempArr:string[] =[];
+        currentSelection.abilities.forEach(async ability=>{
+            await fetch(`${ability.ability.url}`)
+            .then(response=>response.json())
+              .then( res=> {
+                res.effect_entries.map((entry:any)=>{
+                    entry.language.name === "en" ?  tempArr = [...tempArr, entry.effect.replaceAll("\n","").replaceAll(".",". ")] : '';
+                })
+                 setAbilityInfo([...tempArr])
+              })
+        })
+    }
+    
     const selectPrevPokemon = async () =>{
 
         setPokeWeakness([])
@@ -140,12 +156,13 @@ export default function PokemonDetailedView() {
         })
 
     }
+
     useEffect(()=>{
         // console.log(currentSelection)
         initiatePokeWeakness();
         fetchSpeciesSpecs(currentSelection);
-        
-     },[currentSelection])
+        currentSelection ? getAbilityInfo() : ''
+    },[currentSelection])
 
     useEffect(()=>{
         // console.log(pokeWeaknesses)
@@ -167,13 +184,18 @@ export default function PokemonDetailedView() {
         getEvolutionChain();
     },[])
 
-    // useEffect(()=>{
-    //     console.log(speciesSpecifics)
-    //  },[speciesSpecifics])
+    useEffect(()=>{
+        console.log(speciesSpecifics)
+        console.log(currentSelection)
+     },[speciesSpecifics])
+
+     useEffect(()=>{
+        console.log(abilityInfo)
+     },[abilityInfo])
 
   return (
     < >
-        <div className="large-wrapper pt-md-5">
+        <div className="large-wrapper">
             <div className="row justify g-1 prev-next-evolution justify-content-center">
                 <div onClick={selectPrevPokemon} className="col-6  text-center">
                     <button  className="btn w-100 prevnext rounded-0"><span className="inner-id">#{currentSelection.id - 1}</span> {prevPokemon?.name} </button>
@@ -204,9 +226,9 @@ export default function PokemonDetailedView() {
                         <div className="row">
                             <div className="col-md-6 p-0">
                                 <h3>Height</h3>
-                                {(currentSelection.height / 3).toFixed(2).replace(".","' ")}"
+                                {((currentSelection.height * 10) / 30.48).toFixed(2).replace(".","' ")}"
                                 <h3>Weight</h3>
-                                {(currentSelection.weight / 4.539).toFixed(1)} lbs
+                                {(currentSelection.weight / 4.536).toFixed(1)} lbs
                                 <h3>Gender</h3>
 
                             </div>
@@ -225,6 +247,14 @@ export default function PokemonDetailedView() {
                                         )
                                     }) : null
                                 }
+                                {
+                                    abilityInfo ? abilityInfo.map(item=>{
+                                        return(
+                                            <p>{item}</p>
+                                        )
+                                    }) : null 
+                                }
+
                             </div>
                         </div>
                     </div>
