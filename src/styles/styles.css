@@ -99,7 +99,7 @@ body #root .selected-pokemon-outer h3 {
   font-weight: 600;
 }
 body #root .btn {
-  background: maroon;
+  background: #30a6d6;
   color: #fff;
   border: none;
   font-size: 1.25em;
