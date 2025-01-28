@@ -55,7 +55,6 @@ This will create a `build` directory with the production-ready version of the ap
 - **TypeScript**: For static typing and improved developer experience.
 - **SASS/SCSS**: For writing and maintaining styles in a modular way.
 - **Bootstrap**: For responsive design and grid layout.
-- **React Router**: For handling page navigation within the app.
 
 ## Contributing
 
